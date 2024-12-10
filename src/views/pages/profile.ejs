@@ -26,21 +26,40 @@
                             <span>
                                 <%= user.plan %>
                             </span>
-                            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-left: 10px;
-                                background-color: 
-                                <% if (user.subscription.status === 'active') { %>
-                                    green
-                                <% } else if (user.subscription.status === 'paused') { %>
-                                    yellow
-                                <% } else if (user.subscription.status === 'canceled') { %>
-                                    red
-                                <% } else if (user.subscription.status === 'created') { %>
-                                    white
-                                <% } else { %>
-                                    gray <!-- Default for unknown status -->
-                                <% } %>; 
-                                ">
+                            <span style="display: inline-block; 
+             width: 10px; 
+             height: 10px; 
+             border-radius: 50%; 
+             margin-left: 10px; 
+             background-color: 
+             <% if (user.subscription.status === 'active') { %>
+                 green
+             <% } else if (user.subscription.status === 'paused') { %>
+                 yellow
+             <% } else if (user.subscription.status === 'canceled') { %>
+                 red
+             <% } else if (user.subscription.status === 'created') { %>
+                 white
+             <% } else { %>
+                 gray <!-- Default for unknown status -->
+             <% } %>; 
+             box-shadow: 
+                 0 0 15px 5px 
+                 <% if (user.subscription.status === 'active') { %>
+                     green
+                 <% } else if (user.subscription.status === 'paused') { %>
+                     yellow
+                 <% } else if (user.subscription.status === 'canceled') { %>
+                     red
+                 <% } else if (user.subscription.status === 'created') { %>
+                     white
+                 <% } else { %>
+                     gray
+                 <% } %>, 
+                 0 0 5px 2px white; /* Add a subtle white glow for the light effect */
+">
                             </span>
+
                         </div>
                     </div>
 
