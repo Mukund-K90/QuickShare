@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - QuickShare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+
+        .wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .nav-link.active {
+            font-weight: bold;
+            color: #fff !important;
+        }
+
+        #flashMessage {
+            position: fixed;
+            top: 10%;
+            left: 85%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            width: 45%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+
+            10%,
+            90% {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .card {
+            width: 18rem;
+        }
+    </style>
+</head>
+
+<body>
+    <% if (messages.success) { %>
+        <div id="flashMessage" class="alert alert-success">
+            <%= messages.success %>
+        </div>
+        <% } %>
+            <% if (messages.error) { %>
+                <div id="flashMessage" class="alert alert-danger">
+                    <%= messages.error %>
+                </div>
+                <% } %>
+                    <div class="wrapper">
+                        <nav class="nav navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+                            <div class="container-fluid">
+                                <a class="navbar-brand fs-3 fw-bold"
+                                    href="https://file-sharing-platform-bfzs.onrender.com/home">QuickShare</a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item">
+                                            <a class="nav-link active"
+                                                href=" https://file-sharing-platform-bfzs.onrender.com/home">Home</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" onclick="loadPage('my-uploads', this)">My
+                                                Uploads</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" onclick="loadPage('shared-files', this)">My
+                                                Shared Files</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" onclick="loadPage('profile', this)">
+                                                Profile
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/logout">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+
+                        <div id="content" class="content d-flex justify-content-center align-items-center vh-100">
+                            <div>
+                                <h2 class="mt-4 text-center">Welcome to QuickShare</h2>
+                                <p class="mb-5 text-center">Upload and share your files effortlessly. Choose a plan
+                                    below to get started!</p>
+
+                                <div class="d-flex justify-content-center gap-4">
+                                    <!-- Free Plan -->
+                                    <div class="card shadow-sm" style="width: 20rem;">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Free</h5>
+                                            <h6 class="card-subtitle mb-3 text-muted">Free forever</h6>
+                                            <h2 class="mb-4">$0</h2>
+                                            <p class="mb-4">Instantly transform and personalize images and videos.</p>
+                                            <button class="btn btn-secondary" disabled>
+                                                <%= user.plan==="Free" ?"Current Plan" :"Free" %>
+                                            </button>
+                                            <hr>
+                                            <ul class="list-unstyled text-start">
+                                                <li>✔️ Management: 3 users</li>
+                                                <li>✔️ 1 product environment</li>
+                                                <li>✔️ 25 monthly credits</li>
+                                                <li>✔️ 500 admin API limit</li>
+                                                <li>✔️ Media: 10 MB max image file size</li>
+                                                <li>✔️ 100 MB max video file size</li>
+                                                <li>✔️ 10 MB max raw file size</li>
+                                                <li>✔️ 100 MB max image transformation size</li>
+                                                <li>✔️ 40 MB max video transformation size</li>
+                                                <li>✔️ 25 MP max image megapixel</li>
+                                                <li>✔️ 50 MP max megapixel in all frames</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Plus Plan -->
+                                    <div class="card shadow-sm" style="width: 20rem;">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Plus</h5>
+                                            <h6 class="card-subtitle mb-3 text-muted">Extend your team’s digital media
+                                                capabilities for websites & apps.</h6>
+                                            <h2 class="mb-4">$99</h2>
+                                            <p class="mb-4">Per month</p>
+                                            <a href="#" onclick="buySubscription('plan_PTlmcqzJn9toAM','Plus')"
+                                                class="btn btn-warning <%= user.plan === 'Plus' ? 'disabled' : '' %>">
+                                                <%= user.plan==='Plus' ? 'Current Plan' : 'Select Plan' %>
+                                            </a>
+                                            <hr>
+                                            <ul class="list-unstyled text-start">
+                                                <li>✔️ Management: 3 users</li>
+                                                <li>✔️ 2 product environments</li>
+                                                <li>✔️ 225 monthly credits</li>
+                                                <li>✔️ 2000 admin API limit</li>
+                                                <li>✔️ Media: 20 MB max image file size</li>
+                                                <li>✔️ 2 GB max video file size</li>
+                                                <li>✔️ 20 MB max raw file size</li>
+                                                <li>✔️ 100 MB max image transformation size</li>
+                                                <li>✔️ 300 MB max video transformation size</li>
+                                                <li>✔️ 25 MP max image megapixel</li>
+                                                <li>✔️ 100 MP max megapixel in all frames</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Advanced Plan -->
+                                    <div class="card shadow-sm" style="width: 20rem;">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Advanced</h5>
+                                            <h6 class="card-subtitle mb-3 text-muted">Create engaging visual experiences
+                                                with advanced features.</h6>
+                                            <h2 class="mb-4">$249</h2>
+                                            <p class="mb-4">Per month</p>
+                                            <a href="#" onclick="buySubscription('plan_PTlmcqzJn9toAM','Advanced')"
+                                                class="btn btn-danger <%= user.plan === 'Advanced' ? 'disabled' : '' %>">
+                                                <%= user.plan==='Advanced' ? 'Current Plan' : 'Select Plan' %>
+                                            </a>
+                                            <hr>
+                                            <ul class="list-unstyled text-start">
+                                                <li>✔️ Management: 5 users</li>
+                                                <li>✔️ 3 product environments</li>
+                                                <li>✔️ 600 monthly credits</li>
+                                                <li>✔️ 2000 admin API limit</li>
+                                                <li>✔️ Media: 40 MB max image file size</li>
+                                                <li>✔️ 4 GB max video file size</li>
+                                                <li>✔️ 40 MB max raw file size</li>
+                                                <li>✔️ 100 MB max image transformation size</li>
+                                                <li>✔️ 300 MB max video transformation size</li>
+                                                <li>✔️ 50 MP max image megapixel</li>
+                                                <li>✔️ 200 MP max megapixel in all frames</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <footer class="text-grey text-center">
+                            <p>&copy; 2024 QuickShare. All Rights Reserved.</p>
+                        </footer>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+                        crossorigin="anonymous"></script>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+                    <script>
+                        function test() {
+                            console.log("CLICKED");
+
+                        }
+
+                        function loadPage(page, clickedLink) {
+                            const contentDiv = document.getElementById('content');
+                            const xhr = new XMLHttpRequest();
+                            xhr.open('GET', `/${page}`, true);
+                            xhr.onload = function () {
+                                if (xhr.status === 200) {
+                                    contentDiv.innerHTML = xhr.responseText;
+                                    setActiveTab(clickedLink);
+                                    const newUrl = `/home?tab=${page}`;
+                                    window.history.pushState({ path: newUrl }, '', newUrl);
+                                }
+                            };
+                            xhr.send();
+                        }
+
+                        function setActiveTab(clickedLink) {
+                            const navLinks = document.querySelectorAll('.nav-link');
+                            navLinks.forEach(link => {
+                                link.classList.remove('active');
+                            });
+                            clickedLink.classList.add('active');
+                        }
+
+                        document.addEventListener("DOMContentLoaded", function () {
+                            const homeTab = document.querySelector('.nav-link.active');
+                            if (!homeTab) {
+                                const defaultTab = document.querySelector('a[href="http://192.168.1.8:9090/"]');
+                                defaultTab.classList.add('active');
+                            }
+                        });
+
+                        function openImage(url) {
+                            window.open(url, '_blank');
+                        }
+
+                        function downloadFile(assetId, fileName) {
+                            const fileUrl = `https://res-console.cloudinary.com/dwdqnqxr1/media_explorer_thumbnails/${assetId}/download`;
+                            window.location.href = fileUrl;
+                            fetch(`/file/delete-after-download/${fileName}`, {
+                                method: 'POST',
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        // Once deletion is initiated, redirect to the Cloudinary download URL
+
+                                    } else {
+                                        console.error('Failed to delete the file from the server.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        }
+
+                        function deleteFile(file) {
+                            if (confirm('Are you sure you want to delete this file?')) {
+                                fetch(`/file/delete-file/${file}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                    });
+                            }
+                        }
+
+                        function buySubscription(planId, plan) {
+                            fetch(`/payment/subscribe`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ planId: planId, plan: plan })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success && data.redirectLink) {
+                                        window.open(data.redirectLink, '_blank');
+                                        window.location.href = '/home';
+                                    } else {
+                                        console.error('Error creating subscription:', data.message);
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        }
+
+                        function setFileId(fileId) {
+                            document.getElementById('fileId').value = fileId;
+                        }
+                        setTimeout(() => {
+                            document.getElementById("flashMessage").style.display = 'none';
+                        }, 2000);
+                    </script>
+</body>
+
+</html>
