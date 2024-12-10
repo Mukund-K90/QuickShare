@@ -1,5 +1,5 @@
 const { CONFIG } = require("../../../config/config");
-const Payment = require("../../../model/Payment");
+const Payment = require('../../../model/payment');
 const { createSubscription, createCustomer, generateSubscriptionLink, } = require("../../../utils/razorpay");
 const crypto = require('crypto');
 
