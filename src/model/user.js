@@ -20,10 +20,10 @@ const userSchema = new mongoose.Schema({
 
         }
     ],
-    plan: String,
+    plan: { type: String, default: "Free" },
     subscription: {
         id: String,
-        status: String
+        status: { type: String, default: "active" }
     }
 }, { timestamps: true });
 
