@@ -22,7 +22,7 @@ router.post('/razorpay-webhook', async (req, res) => {
         const { event, payload } = req.body;
 
         console.log(`✅ Webhook Event: ${event}`);
-        console.log(`📌 Event Payload:`, JSON.stringify(payload.entity, null, 2));
+        console.log(`📌 Event Payload:`,payload);
 
         return res.status(200).json({ success: true, message: `Received event: ${event}` });
     } catch (error) {
