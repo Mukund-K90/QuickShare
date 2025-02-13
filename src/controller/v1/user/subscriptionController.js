@@ -47,6 +47,7 @@ exports.verifySubscription = async (req, res) => {
         const isAuthentic = generated_signature === razorpay_signature;
 
         if (!isAuthentic) {
+            //payment filed route
             return res.send("PAYMENT FAILED");
         }
         await Payment.create({
@@ -56,6 +57,7 @@ exports.verifySubscription = async (req, res) => {
         });
         user.subscription.status = "active";
         await user.save();
+        //payment success route
         res.send("PAYMENT DONE");
     } catch (error) {
         console.error("Subscription error:", error);

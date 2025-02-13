@@ -50,6 +50,7 @@ app.use((req, res, next) => {
 
 const viewsRoutes = require('./src/routes/common/viewsRoutes');
 app.use('/', viewsRoutes);
+app.use('/', require('./src/routes/webhooks'));
 
 const fileUploadRoutes = require('./src/routes/user/fileUploadRoutes');
 app.use('/file', fileUploadRoutes);
